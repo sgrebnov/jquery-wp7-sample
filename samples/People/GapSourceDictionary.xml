@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is auto-generated, do not edit! -jm -->
+<GapSourceDictionary>
+    <FilePath Value="www\addContacts.png"/>
+    <FilePath Value="www\app.logic.js"/>
+    <FilePath Value="www\avatar1.jpg"/>
+    <FilePath Value="www\avatar2.jpg"/>
+    <FilePath Value="www\index.html"/>
+    <FilePath Value="www\jquery-1.6.4.js"/>
+    <FilePath Value="www\jquery-1.6.4.min.js"/>
+    <FilePath Value="www\jquery.mobile-1.0rc1.css"/>
+    <FilePath Value="www\jquery.mobile-1.0rc1.js"/>
+    <FilePath Value="www\master.css"/>
+    <FilePath Value="www\phonegap-1.1.0.js"/>
+    <FilePath Value="www\search.html"/>
+    <FilePath Value="www\searchContacts.png"/>
+</GapSourceDictionary>

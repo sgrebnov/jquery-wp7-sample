@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+	<link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8">    	
+	<link rel="stylesheet" href="jquery.mobile-1.0rc1.css" type="text/css" media="screen">
+	<script src="jquery-1.6.4.min.js"></script>	
+	<script src="jquery.mobile-1.0rc1.js"></script>
+    <script src="app.logic.js"></script>
+		
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	
+	<title>PhoneGap</title>
+	
+	<link rel="stylesheet" href="master.css" type="text/css" media="screen">
+
+	<script type="text/javascript">
+		// provide our own console if it does not exist, huge dev aid!
+		if (typeof window.console == "undefined") {
+		window.console = { log: function (str) { window.external.Notify(str); } };
+		}
+
+		// output any errors to console log, created above.
+		window.onerror = function (e) {
+		console.log("window.onerror ::" + JSON.stringify(e));
+		};
+
+		console.log("Installed console ! ");
+	</script>
+		  
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.1.0.js"></script>       
+
+	  
+	<script type="text/javascript" charset="utf-8">
+
+	var deviceReady = false;
+
+    
+	function changeGender() {
+	    for (i = 0; i <= gender.length; i++) {
+	        if (gender[i].innerHTML === "Male") 
+            {
+	            gender[i].innerHTML = "Female";
+	        }
+             else 
+            {
+	            gender[i].innerHTML = "Male";
+	        }
+	    }
+	}
+
+	function addContact() {
+		console.log("addContact()");
+		try {
+
+			console.log("before create");
+
+			// create seems to be failing...
+			var contact = navigator.contacts.create({ "displayName": "Dooney Evans" });
+
+			console.log("contact created");
+
+			var contactName = {
+				formatted: "Dooney Evans",
+				familyName: "Evans",
+				givenName: "Dooney",
+				middleName: ""
+			};
+
+			console.log("create contactName");
+
+			contact.name = contactName;
+
+			contact.phoneNumbers = [new ContactField('work', '512-555-1234', true)];
+
+			console.log("create contact phone number");
+
+			contact.save(
+					  function (id) { console.log("Contact saved." + id); },
+					  function (e) { console.log("Contact save failed: " + e.code); }
+					  );
+
+			console.log("saving the contact");
+		}
+		catch (e) {
+			//alert(e);
+			console.log("failed to save contact");
+		}
+
+	};
+
+
+	/**
+	* Function called when page has finished loading.
+	*/
+	function init() {
+		document.addEventListener("deviceready", function () {
+			deviceReady = true;
+			console.log("Device=" + device.platform + " " + device.version);
+		}, false);
+		window.setTimeout(function () {
+			if (!deviceReady) {
+				alert("Error: PhoneGap did not initialize.  Demo will not run correctly.");
+			}
+		}, 1000);
+
+        $('div.ui-page').live('pagebeforeshow', function (event, ui) {
+
+            $('select#genderSwitch').change(function () { changeGender(); });
+            isEventAdded = true;
+            console.log("switch event added!");
+        });
+
+        //jQuery get contacts when loading
+        getContacts(true);
+
+		
+	}
+
+		//jQuery add dummy contact
+	$("#addContactBtn").live("click", function () {
+		addContact();
+	});					 
+					  
+  </script>
+
+  </head>
+
+  <body onLoad="init();" id="stage" class="theme">
+	
+
+	
+	<div class="wp7-page" data-role="page" id="contacts" data-theme="a" data-fullscreen="false">
+	
+		<div data-role="header" class="wp7-header">
+			<h1 id="twi_acc" style="">people</h1>
+		</div>
+
+        <div class="wp7-container">
+		    <ul data-role="listview" data-inset="true" id="searchresult" data-filter="false" data-theme="a" data-divider-theme="e">					
+		    </ul>	
+		</div>
+        
+	    <div class="wp7-footer" data-role="footer">
+	
+            <div class="contact-footer">            
+				<a href="#" id="addContactBtn" data-role="button" style="margin-right:8px;" data-theme="c" data-corners="true" data-inline="true" data-icon="addContacts" data-iconshadow="false" data-shadow="false" data-iconpos="notext">Add a new contact 'Dooney Evans'</a>      
+				<a href="search.html" data-ajax="false" id="searchButton" style="margin-left:8px;" data-role="button" data-theme="c" data-corners="true" data-inline="true" data-icon="searchContacts" data-iconshadow="false" data-shadow="false" data-iconpos="notext">Search</a>      
+			</div>
+		</div> 
+	</div>		
+
+  </body>
+
+</html>      
